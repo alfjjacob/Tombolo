@@ -1,34 +1,26 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
-
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the master branch
+name: Build  
+on: 
   push:
-    branches: [ master ]
-  
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+      branches:
+        - master
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: [self-hosted, Linux, X64]
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      #- uses: actions/checkout@v2
-
-      - name: Set Azure variables for Terraform
-        run: |
-          # authentication is initiated on vm using 'az login --identity'
-          echo "ARM_SUBSCRIPTION_ID=$(az account show --output tsv --query id)" >> $GITHUB_ENV
-          echo "ARM_TENANT_ID=$(az account show --output tsv --query tenantId)" >> $GITHUB_ENV
-      - name: list all rg
-        run: | 
-          echo "-------- az login ---------------"
-          az login --identity
+    runs-on: self-hosted
+    steps:            
+    - uses: actions/checkout@v2
+    - run: |
+        #build 
+        docker build -t tombolo-ui .
+        #tag
+        docker tag tombolo-ui tombolodevcr0f5wf.azurecr.io/tombolo-ui
+        #login to container registry
+        az login --identity
+        az acr login --name tombolodevcr0f5wf.azurecr.io
+        #push image to acr
+        docker push tombolodevcr0f5wf.azurecr.io/tombolo-ui
+        az acr repository list --name tombolodevcr0f5wf --output table
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'tomboloui-eastus2-dev'
+        #publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        images: 'tombolodevcr0f5wf.azurecr.io/tombolo-ui'
