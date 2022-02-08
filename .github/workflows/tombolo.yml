@@ -18,7 +18,7 @@ jobs:
         az acr login --name tombolodevcr0f5wf.azurecr.io
         #push image to acr
         docker push tombolodevcr0f5wf.azurecr.io/tombolo-ui
-        az acr repository list --name tombolodevcr0f5wf --output table
+        #az acr repository list --name tombolodevcr0f5wf --output table
     - uses: azure/webapps-deploy@v2
       with:
         app-name: 'tomboloui-eastus2-dev'
