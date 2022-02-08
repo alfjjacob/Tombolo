@@ -15,6 +15,7 @@ jobs:
         docker tag tombolo-ui tombolodevcr0f5wf.azurecr.io/tombolo-ui
         #login to container registry
         az login --identity
+        az group list
         az acr login --name tombolodevcr0f5wf.azurecr.io
         #push image to acr
         #docker push tombolodevcr0f5wf.azurecr.io/tombolo-ui
