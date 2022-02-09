@@ -17,7 +17,7 @@ jobs:
         az login --identity
         az group list
         az acr login --name tombolodevcrWjMH9.azurecr.io
-        az acr repository list
+        az acr repository list --name tombolodevcrWjMH9.azurecr.io
         #push image to acr
         docker push tombolodevcrWjMH9.azurecr.io/tombolo-ui
         #az acr repository list --name tombolodevcrWjMH9 --output table
