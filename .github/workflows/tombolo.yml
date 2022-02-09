@@ -12,17 +12,17 @@ jobs:
         #build 
         docker build -t tombolo-ui ./client-reactjs
         #tag
-        docker tag tombolo-ui tombolodevcrWjMH9.azurecr.io/tombolo-ui
+        docker tag tombolo-ui tombolodevcr.azurecr.io/tombolo-ui
         #login to container registry
         az login --identity
         az group list
-        az acr login --name tombolodevcrWjMH9
-        az acr repository list --name tombolodevcrWjMH9.azurecr.io
+        az acr login --name tombolodevcr
+        az acr repository list --name tombolodevcr.azurecr.io
         #push image to acr
-        docker push tombolodevcrWjMH9.azurecr.io/tombolo-ui
-        #az acr repository list --name tombolodevcrWjMH9 --output table
+        docker push tombolodevcr.azurecr.io/tombolo-ui
+        #az acr repository list --name tombolodevcr --output table
     #- uses: azure/webapps-deploy@v2
     #  with:
     #    app-name: 'tomboloui-eastus2-dev'
     #    #publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-    #    images: 'tombolodevcrWjMH9.azurecr.io/tombolo-ui'
+    #    images: 'tombolodevcr.azurecr.io/tombolo-ui'
