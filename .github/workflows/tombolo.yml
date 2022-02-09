@@ -18,7 +18,7 @@ jobs:
         az group list
         az acr login --name tombolodevcrWjMH9.azurecr.io
         #push image to acr
-        #docker push tombolodevcrWjMH9.azurecr.io/tombolo-ui
+        docker push tombolodevcrWjMH9.azurecr.io/tombolo-ui
         az acr repository list --name tombolodevcrWjMH9 --output table
     - uses: azure/webapps-deploy@v2
       with:
