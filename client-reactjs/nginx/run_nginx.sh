@@ -6,4 +6,3 @@ export HOSTNAME=$hostname
 export DOLLAR='$'
 envsubst < /etc/nginx/conf.d/nginx.conf.template > /etc/nginx/conf.d/tombolo-nginx.conf
 nginx -g "daemon off;"
-/usr/sbin/sshd
