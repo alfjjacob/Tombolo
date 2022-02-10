@@ -28,9 +28,9 @@ jobs:
       name: 'DEV'
     steps:            
     - uses: actions/checkout@v2    
-    - run: |                
-        docker images
+    - run: |                        
         #build 
+        docker rmi tombolo-ui
         docker build -t tombolo-ui ./client-reactjs
         
         #tag
