@@ -29,8 +29,7 @@ jobs:
     steps:            
     - uses: actions/checkout@v2    
     - run: |                        
-        #build 
-        docker rmi tombolo-ui
+        #build
         docker build -t tombolo-ui ./client-reactjs
         
         #tag
