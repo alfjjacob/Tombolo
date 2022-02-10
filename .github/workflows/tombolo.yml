@@ -6,7 +6,9 @@ on:
 jobs:
   build-ui:
     name: build-ui-container      
-    runs-on: self-hosted  
+    runs-on: self-hosted
+    env:
+      PORT: ${{ secrets.PORT }}
     steps:            
     - uses: actions/checkout@v2    
     - run: |                
