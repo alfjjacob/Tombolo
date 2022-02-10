@@ -73,6 +73,7 @@ class LoginPage extends React.Component {
   }
 
   handleSubmit = (e) => {
+    console.log("handleSubmit");
     e.preventDefault();
     this.setState({ submitted: true });
     const { username, password } = this.state;
