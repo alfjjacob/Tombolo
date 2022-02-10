@@ -20,7 +20,10 @@ jobs:
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_PORT: ${{ secrets.DB_PORT }}
       DB_NAME: ${{ secrets.DB_NAME }}
-      DB_HOSTNAME: ${{ secrets.DB_HOSTNAME }}      
+      DB_HOSTNAME: ${{ secrets.DB_HOSTNAME }}
+      AUTH_SERVICE_URL: ${{ secrets.AUTH_SERVICE_URL }}
+      AUTHSERVICE_TOMBOLO_CLIENT_ID: ${{ secrets.AUTHSERVICE_TOMBOLO_CLIENT_ID }}
+      secret: ${{ secrets.secret }}
     steps:            
     - uses: actions/checkout@v2    
     - run: |                
