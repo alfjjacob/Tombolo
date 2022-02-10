@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "######## Run nginx"
 hostname="$1"
@@ -7,4 +7,4 @@ export DOLLAR='$'
 envsubst < /etc/nginx/conf.d/nginx.conf.template > /etc/nginx/conf.d/tombolo-nginx.conf
 nginx -g "daemon off;"
 
-/usr/sbin/sshd
+service ssh start
