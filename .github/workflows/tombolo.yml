@@ -30,6 +30,7 @@ jobs:
     - uses: actions/checkout@v2    
     - run: |                        
         #build
+        docker rmi tombolodevcr.azurecr.io/tombolo-ui
         docker build -t tombolo-ui ./client-reactjs
         
         #tag
