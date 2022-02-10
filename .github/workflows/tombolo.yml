@@ -5,7 +5,7 @@ on:
         - master
 jobs:
   build-ui:
-    name: build ui container
+    name: build-ui-container
     runs-on: self-hosted
     
     steps:            
