@@ -5,14 +5,12 @@ on:
         - master
 jobs:
   build-ui:
-    name: build-ui-container
+    name: build-ui-container      
     runs-on: self-hosted
-    
     steps:            
     - uses: actions/checkout@v2    
-    - run: |
-        #environment: DEV
-        env:
+    - run: |        
+        env:      
           NODE_ENV=${{ secrets.NODE_ENV }}
           PORT=${{ secrets.PORT }}
           WEB_PORT=${{ secrets.WEB_PORT }}
@@ -28,8 +26,6 @@ jobs:
           AUTH_SERVICE_URL=${{ secrets.AUTH_SERVICE_URL }}
           AUTHSERVICE_TOMBOLO_CLIENT_ID=${{ secrets.AUTHSERVICE_TOMBOLO_CLIENT_ID }}
           secret=${{ secrets.secret }}
-          echo "$GITHUB_CONTEXT"
-        
         #build 
         docker build -t tombolo-ui ./client-reactjs
         
