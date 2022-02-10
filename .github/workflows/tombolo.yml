@@ -8,20 +8,43 @@ jobs:
     runs-on: self-hosted
     steps:            
     - uses: actions/checkout@v2
+    - name: build ui container
     - run: |
+        environment: DEV
+        env:
+          NODE_ENV=${{ secrets.NODE_ENV }}
+          PORT=${{ secrets.PORT }}
+          WEB_PORT=${{ secrets.WEB_PORT }}
+          WEB_EXPOSED_PORT=${{ secrets.WEB_EXPOSED_PORT }}
+          WEB_EXPOSED_HTTP_PORT=${{ secrets.WEB_EXPOSED_HTTP_PORT }}
+          HOST_HOSTNAME=${{ secrets.HOST_HOSTNAME }}
+          WEB_URL=${{ secrets.WEB_URL }}
+          DB_USERNAME=${{ secrets.DB_USERNAME }}
+          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          DB_PORT=${{ secrets.DB_PORT }}
+          DB_NAME=${{ secrets.DB_NAME }}
+          DB_NAME=${{ secrets.DB_NAME }}
+          AUTH_SERVICE_URL=${{ secrets.AUTH_SERVICE_URL }}
+          AUTHSERVICE_TOMBOLO_CLIENT_ID=${{ secrets.AUTHSERVICE_TOMBOLO_CLIENT_ID }}
+          secret=${{ secrets.secret }}
+          echo "$GITHUB_CONTEXT"
+        
         #build 
         docker build -t tombolo-ui ./client-reactjs
+        
         #tag
         docker tag tombolo-ui tombolodevcr.azurecr.io/tombolo-ui
-        #login to container registry
+        
+        #login to Azure
         az login --identity
-        az group list
-        az acr login --name tombolodevcr
-        az acr repository list --name tombolodevcr.azurecr.io
+        
+        #login to container registry
+        az acr login --name tombolodevcr        
+        
         #push image to acr
         docker push tombolodevcr.azurecr.io/tombolo-ui
-        #az acr repository list --name tombolodevcr --output table
     - uses: azure/webapps-deploy@v2
+    - name: deploy ui container
       with:
         app-name: 'tomboloui-eastus2-dev'
         #publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
