@@ -11,7 +11,7 @@ jobs:
     steps:            
     - uses: actions/checkout@v2    
     - run: |
-        environment: DEV
+        #environment: DEV
         env:
           NODE_ENV=${{ secrets.NODE_ENV }}
           PORT=${{ secrets.PORT }}
