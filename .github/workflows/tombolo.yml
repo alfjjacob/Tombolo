@@ -9,6 +9,16 @@ jobs:
     runs-on: self-hosted
     env:
       PORT: ${{ secrets.PORT }}
+      WEB_PORT: ${{ secrets.WEB_PORT }}
+      WEB_EXPOSED_PORT: ${{ secrets.WEB_EXPOSED_PORT }}
+      WEB_EXPOSED_HTTP_PORT: ${{ secrets.WEB_EXPOSED_HTTP_PORT }}
+      HOST_HOSTNAME: ${{ secrets.HOST_HOSTNAME }}
+      WEB_URL: ${{ secrets.WEB_URL }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_HOSTNAME: ${{ secrets.DB_HOSTNAME }}      
     steps:            
     - uses: actions/checkout@v2    
     - run: |                
