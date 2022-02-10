@@ -42,6 +42,6 @@ COPY nginx/run_nginx.sh /etc/nginx/run_nginx.sh
 
 RUN ["chmod", "+x", "/etc/nginx/run_nginx.sh"]
 
-EXPOSE 2222
+EXPOSE 2222 80
 
-ENTRYPOINT ["sh", "/etc/nginx/run_nginx.sh", "$HOST_HOSTNAME"]
+ENTRYPOINT ["/etc/nginx/run_nginx.sh", "$HOST_HOSTNAME"]
