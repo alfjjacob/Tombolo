@@ -7,6 +7,8 @@ jobs:
   build-ui:
     name: build-ui-container      
     runs-on: self-hosted
+    environment:
+      name: 'DEV'
     env:
       PORT: ${{ secrets.PORT }}
       WEB_PORT: ${{ secrets.WEB_PORT }}
