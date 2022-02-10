@@ -29,6 +29,7 @@ jobs:
     steps:            
     - uses: actions/checkout@v2    
     - run: |                
+        docker images
         #build 
         docker build -t tombolo-ui ./client-reactjs
         
@@ -47,27 +48,4 @@ jobs:
       with:
         app-name: 'tomboloui-eastus2-dev'
         #publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        images: 'tombolodevcr.azurecr.io/tombolo-ui'
-  build_api:
-    name: Build API
-    runs-on: self-hosted
-    environment:
-      name: 'DEV'
-    steps:            
-    - uses: actions/checkout@v2    
-    - run: |                
-        #build 
-        docker build -t tombolo-api ./server        
-        #tag
-        docker tag tombolo-api tombolodevcr.azurecr.io/tombolo-api
-        #login to Azure
-        az login --identity        
-        #login to container registry
-        az acr login --name tombolodevcr        
-        #push image to acr
-        docker push tombolodevcr.azurecr.io/tombolo-api
-    - uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'tomboloapi-eastus2-dev'
-        #publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        images: 'tombolodevcr.azurecr.io/tombolo-api'
+        images: 'tombolodevcr.azurecr.io/tombolo-ui'  
