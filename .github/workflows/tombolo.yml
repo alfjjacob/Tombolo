@@ -8,10 +8,10 @@ jobs:
     name: build-ui-container      
     runs-on: self-hosted
     env:
-      PORT: ${{ secrets.PORT }}
-      WEB_PORT: ${{ secrets.WEB_PORT }}
-      WEB_EXPOSED_PORT: ${{ secrets.WEB_EXPOSED_PORT }}
-      WEB_EXPOSED_HTTP_PORT: ${{ secrets.WEB_EXPOSED_HTTP_PORT }}
+      PORT: ${{ env.PORT }}
+      WEB_PORT: ${{ env.WEB_PORT }}
+      WEB_EXPOSED_PORT: ${{ env.WEB_EXPOSED_PORT }}
+      WEB_EXPOSED_HTTP_PORT: ${{ env.WEB_EXPOSED_HTTP_PORT }}
       HOST_HOSTNAME: ${{ secrets.HOST_HOSTNAME }}
       WEB_URL: ${{ secrets.WEB_URL }}
       DB_USERNAME: ${{ secrets.DB_USERNAME }}
