@@ -18,14 +18,12 @@ services:
       - ${WEB_EXPOSED_HTTP_PORT}:${WEB_EXPOSED_HTTP_PORT}
     volumes:
       - ${CERT_PATH}:/etc/ssl
-    depends_on:
-      - mysql_db
     env_file:
       - .env
     entrypoint: [sh, /etc/nginx/run_nginx.sh, "${HOST_HOSTNAME}"]
   node:
     #restart: always
-    entrypoint: [sh, ./docker-entry.sh, "mysql_db", "${DB_PORT}"]
+    entrypoint: [sh, ./docker-entry.sh, "${DB_HOSTNAME}", "${DB_PORT}"]
     build:
       context: ./server
       dockerfile: Dockerfile
@@ -35,10 +33,9 @@ services:
       - tombolo-network
     ports:
       - ${PORT}:${PORT}
-    depends_on:
-      - mysql_db
     env_file:
       - .env  
+
 networks:
   tombolo-network:
     driver: bridge

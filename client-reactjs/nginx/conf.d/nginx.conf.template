@@ -1,18 +1,12 @@
 server {
   listen $WEB_EXPOSED_HTTP_PORT;
-  server_name $HOSTNAME;
-  return 301 https://${DOLLAR}server_name${DOLLAR}request_uri;
-}
-
-server {
-  listen $WEB_EXPOSED_PORT;
-  ssl on;
-  ssl_certificate <certificate location>;
-  ssl_certificate_key <certificate location
-  ssl_ciphers EECDH+AESGCM:EDH+AESGCM;
-  ssl_ecdh_curve secp384r1;
-  ssl_session_timeout  10m;
-  ssl_session_cache shared:SSL:10m;
+  #ssl on;
+  #ssl_certificate <certificate location>;
+  #ssl_certificate_key <certificate location
+  #ssl_ciphers EECDH+AESGCM:EDH+AESGCM;
+  #ssl_ecdh_curve secp384r1;
+  #ssl_session_timeout  10m;
+  #ssl_session_cache shared:SSL:10m;
   server_name $HOSTNAME;
   add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
   add_header X-XSS-Protection "1; mode=block";
@@ -39,13 +33,13 @@ server {
   }
 
   location /api {
-    proxy_pass https://tomboloapi-eastus2-dev.azurewebsites.net;
+    proxy_pass http://node:3000;
     proxy_set_header X-Frame-Options "deny";
     proxy_hide_header X-Powered-By;
   }
 
     location /socket.io {
-    proxy_pass https://tomboloapi-eastus2-dev.azurewebsites.net;
+    proxy_pass http://node:3000;
     proxy_http_version 1.1;
     proxy_set_header Upgrade ${DOLLAR}http_upgrade;
     proxy_set_header Connection 'upgrade';
