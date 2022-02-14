@@ -33,6 +33,7 @@ RUN apk add openssh \
 
 # Copy the sshd_config file to the /etc/ssh/ directory
 COPY sshd_config /etc/ssh/
+RUN dos2unix /etc/ssh/sshd_config
 
 # Copy and configure the ssh_setup file
 RUN mkdir -p /tmp
