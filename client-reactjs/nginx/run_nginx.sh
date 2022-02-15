@@ -7,4 +7,5 @@ export DOLLAR='$'
 envsubst < /etc/nginx/conf.d/nginx.conf.template > /etc/nginx/conf.d/tombolo-nginx.conf
 nginx -g "daemon off;"
 
+echo "start ssh server"
 /usr/sbin/sshd
