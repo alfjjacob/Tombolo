@@ -28,10 +28,12 @@ COPY nginx/run_nginx.sh /etc/nginx/run_nginx.sh
 RUN dos2unix /etc/nginx/run_nginx.sh
 
 # Install OpenSSH and set the password for root to "Docker!". In this example, "apk add" is the install instruction for an Alpine Linux-based image.
+RUN echo -e "http://nl.alpinelinux.org/alpine/v3.5/main\nhttp://nl.alpinelinux.org/alpine/v3.5/community" > /etc/apk/repositories
+RUN apk update
 RUN apk add openssh \
-     && echo "root:Docker!" | chpasswd 
+     && echo "root:Docker!" | chpasswd
 
-RUN mkdir /var/run/sshd
+RUN mkdir /var/run/sshd     
 
 # Copy the sshd_config file to the /etc/ssh/ directory
 COPY sshd_config /etc/ssh/
