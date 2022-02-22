@@ -31,6 +31,8 @@ RUN dos2unix /etc/nginx/run_nginx.sh
 RUN apk add openssh \
      && echo "root:Docker!" | chpasswd 
 
+RUN mkdir /var/run/sshd
+
 # Copy the sshd_config file to the /etc/ssh/ directory
 COPY sshd_config /etc/ssh/
 RUN dos2unix /etc/ssh/sshd_config
