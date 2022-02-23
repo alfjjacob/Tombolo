@@ -18,37 +18,35 @@ env:
   DB_HOSTNAME: ${{ secrets.DB_HOSTNAME }}
   AUTH_SERVICE_URL: ${{ secrets.AUTH_SERVICE_URL }}
   AUTHSERVICE_TOMBOLO_CLIENT_ID: ${{ secrets.AUTHSERVICE_TOMBOLO_CLIENT_ID }}
-  secret: ${{ secrets.secret }}        
-
+  secret: ${{ secrets.secret }}
+  REACT_APP_PROXY_URL: ${{ secrets.REACT_APP_PROXY_URL }}
+  NODE_VERSION: '14.x'
+  AZURE_WEBAPP_PACKAGE_PATH: 'client-reactjs'
+  
 jobs:    
   build-ui:
     name: build-ui-container      
     runs-on: self-hosted    
     environment:
       name: 'DEV'
-    steps:            
-    - uses: actions/checkout@v2    
-    - run: |                        
-        #build
-        #docker rmi tombolo-ui:latest
-        docker build -t tombolo-ui ./client-reactjs
-        
-        #tag
-        docker tag tombolo-ui tombolodevcr.azurecr.io/tombolo-ui
-        
-        #login to Azure
-        az login --identity
-        
-        #login to container registry
-        az acr login --name tombolodevcr        
-        
-        #push image to acr
-        docker push tombolodevcr.azurecr.io/tombolo-ui
+    steps:
+    - uses: actions/checkout@main
+    - name: Use Node.js ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+    - name: npm install, build, and test
+      run: |
+        # Build and test the project, then
+        # deploy to Azure Web App.
+        npm install
+        npm run build --if-present
+        npm run test --if-present
     - uses: azure/webapps-deploy@v2
       with:
         app-name: 'tomboloui-eastus2-dev'
-        #publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        images: 'tombolodevcr.azurecr.io/tombolo-ui'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
         
   build_api:
     name: build-api-container
