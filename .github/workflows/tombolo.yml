@@ -21,7 +21,7 @@ env:
   secret: ${{ secrets.secret }}
   REACT_APP_PROXY_URL: ${{ secrets.REACT_APP_PROXY_URL }}
   NODE_VERSION: '14.x'
-  AZURE_WEBAPP_PACKAGE_PATH: 'build'
+  AZURE_WEBAPP_PACKAGE_PATH: './build'
   
 jobs:    
   build-ui:
