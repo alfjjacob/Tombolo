@@ -41,34 +41,10 @@ jobs:
         # Build and test the project, then
         # deploy to Azure Web App.
         npm install
-        npm run build --if-present
-        npm run test --if-present
+        CI=false npm run build --if-present        
     - uses: azure/webapps-deploy@v2
       with:
         app-name: 'tomboloui-eastus2-dev'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-        
-  build_api:
-    name: build-api-container    
-    runs-on: self-hosted
-    environment:
-      name: 'DEV'
-    steps:            
-    - uses: actions/checkout@v2    
-    - run: |                
-        #build 
-        docker build -t tombolo-api ./server        
-        #tag
-        docker tag tombolo-api tombolodevcr.azurecr.io/tombolo-api
-        #login to Azure
-        az login --identity        
-        #login to container registry
-        az acr login --name tombolodevcr        
-        #push image to acr
-        docker push tombolodevcr.azurecr.io/tombolo-api
-    - uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'tomboloapi-eastus2-dev'
-        #publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        images: 'tombolodevcr.azurecr.io/tombolo-api'
+          
