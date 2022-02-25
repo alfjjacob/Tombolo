@@ -18,7 +18,8 @@ env:
   DB_HOSTNAME: ${{ secrets.DB_HOSTNAME }}
   AUTH_SERVICE_URL: ${{ secrets.AUTH_SERVICE_URL }}
   AUTHSERVICE_TOMBOLO_CLIENT_ID: ${{ secrets.AUTHSERVICE_TOMBOLO_CLIENT_ID }}
-  secret: ${{ secrets.secret }}        
+  secret: ${{ secrets.secret }}
+  AZURE_WEBAPP_PACKAGE_PATH: './build'
 
 jobs:    
   build-ui:
@@ -37,7 +38,7 @@ jobs:
         # Build and test the project, then
         # deploy to Azure Web App.
         npm install
-        npm run build --if-present
+        CI=false && npm run build --if-present
         npm run test --if-present
       working-directory: client-reactjs  
         
@@ -45,4 +46,5 @@ jobs:
       with:
         app-name: 'tomboloui2-eastus2-dev'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
         
