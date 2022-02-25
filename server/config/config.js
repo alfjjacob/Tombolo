@@ -5,13 +5,7 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     host: process.env.DB_HOSTNAME,
-    dialect: 'mysql',
-    "ssl": true,
-    "dialectOptions": {
-       "ssl": {
-          "require": true
-       }
-    },
+    dialect: 'mysql',    
     seederStorage: 'json'
   },
   production: {
@@ -19,13 +13,7 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     host: process.env.DB_HOSTNAME,
-    dialect: 'mysql',
-    "ssl": true,
-    "dialectOptions": {
-       "ssl": {
-          "require": true
-       }
-    },
+    dialect: 'mysql',   
     seederStorage: 'json'
   }
 };
