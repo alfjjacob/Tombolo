@@ -26,7 +26,7 @@ class Regulations extends Component {
    this.setState({
       initialDataLoading: true
     });
-  	fetch("/api/controlsAndRegulations/controlsAndRegulations", {
+  	fetch(process.env.REACT_APP_PROXY_URL + "/api/controlsAndRegulations/controlsAndRegulations", {
       headers: authHeader()
     })
 	.then((response) => {
@@ -52,7 +52,7 @@ class Regulations extends Component {
   handleDelete = (compliance) => {
     var data = JSON.stringify({compliance:compliance});
     console.log(data);
-  fetch("/api/controlsAndRegulations/delete", {
+  fetch(process.env.REACT_APP_PROXY_URL + "/api/controlsAndRegulations/delete", {
     method: 'post',
     headers: authHeader(),
     body: data
@@ -77,7 +77,7 @@ class Regulations extends Component {
   }
 
   handleEdit(compliance) {
-    fetch("/api/controlsAndRegulations/getRegulation?compliance="+compliance, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/controlsAndRegulations/getRegulation?compliance="+compliance, {
         headers: authHeader()
     })
     .then((response) => {

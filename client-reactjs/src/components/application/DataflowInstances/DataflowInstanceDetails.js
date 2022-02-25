@@ -37,7 +37,7 @@ class DataflowInstanceDetails extends Component {
     this.setState({
       loading: true,
     });
-    fetch('/api/job/jobExecutionDetails?dataflowId=' + this.props.dataflowId + '&applicationId=' + this.props.application.applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + '/api/job/jobExecutionDetails?dataflowId=' + this.props.dataflowId + '&applicationId=' + this.props.application.applicationId, {
       headers: authHeader(),
     })
       .then((response) => {

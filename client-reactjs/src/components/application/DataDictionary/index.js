@@ -20,7 +20,7 @@ function DataDictionary(props) {
   }, [application]);
 
   const fetchDataDictionary = () => {
-    fetch("/api/data-dictionary?application_id="+application.applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/data-dictionary?application_id="+application.applicationId, {
       headers: authHeader()
     })
     .then((response) => {
@@ -52,7 +52,7 @@ function DataDictionary(props) {
 
   const fetchFiles = () => {
     return new Promise((resolve, reject) => {
-      fetch("/api/file/read/file_list?app_id="+application.applicationId, {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/file_list?app_id="+application.applicationId, {
           headers: authHeader()
       })
       .then((response) => {

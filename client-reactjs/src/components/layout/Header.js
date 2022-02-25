@@ -82,9 +82,9 @@ class AppHeader extends Component {
       }
 
       if(this.state.applications.length === 0) {
-        var url="/api/app/read/appListByUserId?user_id="+this.props.user.id+'&user_name='+this.props.user.username;
+        var url=process.env.REACT_APP_PROXY_URL + "/api/app/read/appListByUserId?user_id="+this.props.user.id+'&user_name='+this.props.user.username;
         if(hasAdminRole(this.props.user)) {
-          url="/api/app/read/app_list";
+          url=process.env.REACT_APP_PROXY_URL + "/api/app/read/app_list";
         }
         fetch(url, {
           headers: authHeader()
@@ -232,7 +232,7 @@ class AppHeader extends Component {
       const values = await this.pwdformRef.current.validateFields();
 
       this.setState({loading: true });
-      fetch("/api/user/changePassword", {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/user/changePassword", {
         method: 'post',
         headers: authHeader(),
         body: JSON.stringify({"username": this.props.user.username, "oldpassword":this.state.oldpassword, "newpassword": this.state.newpassword, "confirmnewpassword": this.state.confirmnewpassword})

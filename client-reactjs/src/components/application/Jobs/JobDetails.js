@@ -212,7 +212,7 @@ class JobDetails extends Component {
         initialDataLoading: true,
       });
 
-      let jobDetailsUrl = "/api/job/job_details",
+      let jobDetailsUrl = process.env.REACT_APP_PROXY_URL + "/api/job/job_details",
         queryStringParams = {};      
       if (this.props.selectedAsset && this.props.selectedAsset.id) {
         queryStringParams["job_id"] = this.props.selectedAsset.id;
@@ -356,7 +356,7 @@ class JobDetails extends Component {
   }
 
   getFiles() {
-    let fileUrl = "/api/file/read/file_list",
+    let fileUrl = process.env.REACT_APP_PROXY_URL + "/api/file/read/file_list",
       queryStringParams = {};
 
     if (this.props.application && this.props.application.applicationId) {
@@ -491,7 +491,7 @@ class JobDetails extends Component {
       keyword: searchString,
       indexSearch: true,
     });
-    fetch("/api/hpcc/read/jobsearch", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/jobsearch", {
       method: "post",
       headers: authHeader(),
       body: data,
@@ -540,7 +540,7 @@ class JobDetails extends Component {
       nameFilter: searchString,
       server: this.formRef.current.getFieldValue("sprayDropZone").label[0],
     });
-    fetch("/api/hpcc/read/dropZoneFileSearch", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/dropZoneFileSearch", {
       method: "post",
       headers: authHeader(),
       body: data,
@@ -578,7 +578,7 @@ class JobDetails extends Component {
 
   onJobSelected(option) {
     fetch(
-      "/api/hpcc/read/getJobInfo?jobWuid=" +
+      process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/getJobInfo?jobWuid=" +
         option.key +
         "&jobName=" +
         option.value +
@@ -701,7 +701,7 @@ class JobDetails extends Component {
         headers: authHeader(),
         body: JSON.stringify({ isNew: this.props.isNew, id: this.state.job.id, job: await this.populateJobDetails() }),
       };
-      const response = await fetch('/api/job/saveJob', payload);
+      const response = await fetch(process.env.REACT_APP_PROXY_URL + '/api/job/saveJob', payload);
   
       if (!response.ok) handleError(response);
       if (this.props.reload) this.props.reload();
@@ -719,7 +719,7 @@ class JobDetails extends Component {
 async sendGHCreds({ GHUsername, GHToken }){
     try {
       const payload = { GHUsername, GHToken };
-      const respond = await fetch('/api/ghcredentials', { method: "POST", headers: authHeader(), body: JSON.stringify(payload) });  
+      const respond = await fetch(process.env.REACT_APP_PROXY_URL + '/api/ghcredentials', { method: "POST", headers: authHeader(), body: JSON.stringify(payload) });  
       if (!respond.ok) throw new Error("Failed to send credentials!");
       const result = await respond.json();
       return result.id
@@ -1381,7 +1381,7 @@ async sendGHCreds({ GHUsername, GHToken }){
     _self.setState({
       initialDataLoading: true,
     });
-    fetch("/api/job/executeJob", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/job/executeJob", {
       method: "post",
       headers: authHeader(),
       body: JSON.stringify({

@@ -34,7 +34,7 @@ function BasicsTabGeneral({ enableEdit, editingAllowed, addingNewAsset, jobType,
         body: JSON.stringify({ clusterid: clusterId, keyword: searchString, indexSearch: true })
       }; 
       
-      const response = await fetch('/api/hpcc/read/jobsearch', options);
+      const response = await fetch(process.env.REACT_APP_PROXY_URL + '/api/hpcc/read/jobsearch', options);
       
       if (!response.ok) {
         const error = new Error(response.statusText);
@@ -59,7 +59,7 @@ function BasicsTabGeneral({ enableEdit, editingAllowed, addingNewAsset, jobType,
 
   const onJobSelected =  async (option) => {
     try {
-      const url = `/api/hpcc/read/getJobInfo?jobWuid=${option.key}&jobName=${option.value}&clusterid=${assetReducer.clusterId}&jobType=${jobType}&applicationId=${applicationId}`
+      const url = process.env.REACT_APP_PROXY_URL + `/api/hpcc/read/getJobInfo?jobWuid=${option.key}&jobName=${option.value}&clusterid=${assetReducer.clusterId}&jobType=${jobType}&applicationId=${applicationId}`
       setJob(() => ({loading:true, disableFields: false }));
       const respond = await fetch(url, { headers: authHeader() });
       if (!respond.ok) handleError(respond)

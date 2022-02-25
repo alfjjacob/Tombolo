@@ -28,7 +28,7 @@ function DataflowAssetsTable({applicationId, selectedDataflow, user, application
 
 	const fetchDataAndRenderTable = () => {
     return new Promise((resolve, reject) => {
-      fetch("/api/dataflow/assets?app_id="+applicationId+"&dataflowId="+selectedDataflow.id, {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/dataflow/assets?app_id="+applicationId+"&dataflowId="+selectedDataflow.id, {
         headers: authHeader()
       })
       .then((response) => {
@@ -50,7 +50,7 @@ function DataflowAssetsTable({applicationId, selectedDataflow, user, application
 
   const fetchDataflowGraph = () => {
     return new Promise((resolve, reject) => {
-      fetch("/api/dataflowgraph?application_id="+applicationId+"&dataflowId="+selectedDataflow.id, {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/dataflowgraph?application_id="+applicationId+"&dataflowId="+selectedDataflow.id, {
         headers: authHeader()
       })
       .then((response) => {

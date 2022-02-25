@@ -49,8 +49,8 @@ function AssetsTable({ openGroup, handleEditGroup, refreshGroups }) {
     if(applicationId) {
       let url =
         keywords !== ""
-          ? "/api/groups/assetsSearch?app_id=" + applicationId + ""
-          : "/api/groups/assets?app_id=" + applicationId;
+          ? process.env.REACT_APP_PROXY_URL + "/api/groups/assetsSearch?app_id=" + applicationId + ""
+          : process.env.REACT_APP_PROXY_URL + "/api/groups/assets?app_id=" + applicationId;
       if (selectedGroup?.selectedKeys?.id) {
         url += "&group_id=" + selectedGroup.selectedKeys.id;
       }
@@ -153,28 +153,28 @@ function AssetsTable({ openGroup, handleEditGroup, refreshGroups }) {
     switch (type) {
       case "File":
         data = JSON.stringify({ fileId: id, application_id: applicationId });
-        deleteUrl = "/api/file/read/delete";
+        deleteUrl = process.env.REACT_APP_PROXY_URL + "/api/file/read/delete";
         break;
       case "Index":
         data = JSON.stringify({ indexId: id, application_id: applicationId });
-        deleteUrl = "/api/index/read/delete";
+        deleteUrl = process.env.REACT_APP_PROXY_URL + "/api/index/read/delete";
         break;
       case "Job":
         data = JSON.stringify({ jobId: id, application_id: applicationId });
-        deleteUrl = "/api/job/delete";
+        deleteUrl = process.env.REACT_APP_PROXY_URL + "/api/job/delete";
         break;
       case "Query":
         data = JSON.stringify({ queryId: id, application_id: applicationId });
-        deleteUrl = "/api/query/delete";
+        deleteUrl = process.env.REACT_APP_PROXY_URL + "/api/query/delete";
         break;
       case "Group":
         data = JSON.stringify({ group_id: id, app_id: applicationId });
-        deleteUrl = "/api/groups";
+        deleteUrl = process.env.REACT_APP_PROXY_URL + "/api/groups";
         method = "delete";
         break;
       case "RealBI Dashboard":
         data = JSON.stringify({ id: id });
-        deleteUrl = "/api/file/read/deleteVisualization";
+        deleteUrl = process.env.REACT_APP_PROXY_URL + "/api/file/read/deleteVisualization";
         break;
 
     }
@@ -208,7 +208,7 @@ function AssetsTable({ openGroup, handleEditGroup, refreshGroups }) {
 
   const handleCreateVisualization = (id, cluster_id) => {
     console.log(cluster_id);
-    fetch("/api/file/read/visualization", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/visualization", {
       method: "post",
       headers: authHeader(),
       body: JSON.stringify({

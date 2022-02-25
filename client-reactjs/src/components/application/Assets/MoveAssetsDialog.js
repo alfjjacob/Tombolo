@@ -25,7 +25,7 @@ function MoveAssetsDialog({isShowing, toggle, application, assetToMove, reloadTa
   }, [application]);
 
   const fetchGroups = () => {
-    let url = "/api/groups?app_id="+application.applicationId;
+    let url = process.env.REACT_APP_PROXY_URL + "/api/groups?app_id="+application.applicationId;
     fetch(url, {
       headers: authHeader()
     })
@@ -68,7 +68,7 @@ function MoveAssetsDialog({isShowing, toggle, application, assetToMove, reloadTa
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        fetch('/api/groups/move/asset', {
+        fetch(process.env.REACT_APP_PROXY_URL + '/api/groups/move/asset', {
           method: 'put',
           headers: authHeader(),
           body: JSON.stringify({

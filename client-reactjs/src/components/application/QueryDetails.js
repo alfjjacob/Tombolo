@@ -97,7 +97,7 @@ class QueryDetails extends PureComponent {
 
   getQueryDetails() {
     if(this.props.selectedAsset && !this.props.isNew) {
-      fetch("/api/query/query_details?query_id="+this.props.selectedAsset.id+"&app_id="+this.props.application.applicationId, {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/query/query_details?query_id="+this.props.selectedAsset.id+"&app_id="+this.props.application.applicationId, {
         headers: authHeader()
       })
       .then((response) => {
@@ -204,7 +204,7 @@ class QueryDetails extends PureComponent {
       content: 'Are you sure you want to delete this Query?',
       onOk() {
         var data = JSON.stringify({queryId: _self.props.selectedAsset.id, application_id: _self.props.application.applicationId});
-        fetch("/api/query/delete", {
+        fetch(process.env.REACT_APP_PROXY_URL + "/api/query/delete", {
           method: 'post',
           headers: authHeader(),
           body: data
@@ -242,7 +242,7 @@ class QueryDetails extends PureComponent {
   };
 
   getClusters() {
-    fetch("/api/hpcc/read/getClusters", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/getClusters", {
       headers: authHeader()
     })
     .then((response) => {
@@ -272,7 +272,7 @@ class QueryDetails extends PureComponent {
     if(searchString.length <= 3)
       return;
     var data = JSON.stringify({clusterid: this.state.selectedCluster, keyword: searchString, indexSearch:true});
-    fetch("/api/hpcc/read/querysearch", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/querysearch", {
       method: 'post',
       headers: authHeader(),
       body: data
@@ -306,7 +306,7 @@ class QueryDetails extends PureComponent {
   }, 100);
 
   onQuerySelected(selectedSuggestion) {
-    fetch("/api/hpcc/read/getQueryInfo?queryName="+selectedSuggestion+"&clusterid="+this.state.selectedCluster+"&applicationId="+this.props.application.applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/getQueryInfo?queryName="+selectedSuggestion+"&clusterid="+this.state.selectedCluster+"&applicationId="+this.props.application.applicationId, {
       headers: authHeader()
     })
     .then((response) => {
@@ -354,7 +354,7 @@ class QueryDetails extends PureComponent {
   }
 
   getQueries() {
-    fetch("/api/queries/read/file_ids?app_id="+this.props.application.applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/queries/read/file_ids?app_id="+this.props.application.applicationId, {
       headers: authHeader()
     })
     .then((response) => {
@@ -378,7 +378,7 @@ class QueryDetails extends PureComponent {
       this.setState({
         initialDataLoading: true
       });
-      fetch('/api/query/saveQuery', {
+      fetch(process.env.REACT_APP_PROXY_URL + '/api/query/saveQuery', {
         method: 'post',
         headers: authHeader(),
         body: JSON.stringify({isNew : this.props.isNew, id: this.state.query.id, query : this.populateQueryDetails()})

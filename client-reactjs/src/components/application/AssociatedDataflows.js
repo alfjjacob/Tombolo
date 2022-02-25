@@ -17,7 +17,7 @@ function AssociatedDataflows({assetId, assetType}) {
 	}, [])
 
 	const fetchData = () => {
-		fetch('/api/report/read/associatedDataflows?assetId='+assetId+'&type='+assetType, {
+		fetch(process.env.REACT_APP_PROXY_URL + '/api/report/read/associatedDataflows?assetId='+assetId+'&type='+assetType, {
       headers: authHeader(),
     }).then(function(response) {
       if(response.ok) {

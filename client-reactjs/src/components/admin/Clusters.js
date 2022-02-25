@@ -34,7 +34,7 @@ class Clusters extends Component {
   }
 
   getClusterWhitelist() {
-    fetch("/api/hpcc/read/getClusterWhitelist", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/getClusterWhitelist", {
       headers: authHeader()
     })
     .then((response) => {
@@ -55,7 +55,7 @@ class Clusters extends Component {
 
   handleRemove = (clusterId) => {
    	var data = JSON.stringify({clusterIdsToDelete:clusterId});
-    fetch("/api/hpcc/read/removecluster", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/removecluster", {
        method: 'post',
        headers: authHeader(),
        body: data
@@ -107,7 +107,7 @@ class Clusters extends Component {
   }
 
   handleEditCluster(clusterId) {
-    fetch("/api/hpcc/read/getCluster?cluster_id="+clusterId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/getCluster?cluster_id="+clusterId, {
       headers: authHeader()
     })
     .then((response) => {
@@ -188,7 +188,7 @@ class Clusters extends Component {
       "password" : this.state.newCluster.password
     });
 
-    fetch("/api/hpcc/read/newcluster", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/newcluster", {
       method: 'post',
       headers: authHeader(),
       body: data

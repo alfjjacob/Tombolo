@@ -35,7 +35,7 @@ class AddRegulations extends Component {
     }
     getDataTypesList() {
         var _self=this;
-        fetch("/api/controlsAndRegulations/dataTypes", {
+        fetch(process.env.REACT_APP_PROXY_URL + "/api/controlsAndRegulations/dataTypes", {
           headers: authHeader()
         }).then((response) => {
             if(response.ok) {
@@ -64,7 +64,7 @@ class AddRegulations extends Component {
         (this.state.selectedRowKeys).forEach(function (item, idx) {
             regulations.push({"compliance":compliance, "data_types":item});
         });
-      fetch('/api/controlsAndRegulations/saveRegulations', {
+      fetch(process.env.REACT_APP_PROXY_URL + '/api/controlsAndRegulations/saveRegulations', {
         method: 'post',
         headers: authHeader(),
         body: JSON.stringify({regulations:regulations,compliance:this.state.compliance,

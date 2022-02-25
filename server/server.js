@@ -5,7 +5,7 @@ const tokenService = require('./utils/token_service');
 const {verifyToken} = require("./routes/user/userservice")
 const jwt = require('jsonwebtoken');
 const {NotificationModule} = require('./routes/notifications/email-notification');
-
+var cors = require('cors')
 // Socket
 const server = require('http').Server(app);
 const socketIo = require('socket.io')(server);
@@ -25,7 +25,7 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 400 // limit each IP to 400 requests per windowMs
 });
-
+app.use(cors());
 app.use(express.json());
 app.use(function(req, res, next) {
   //res.header("Access-Control-Allow-Origin", "*");

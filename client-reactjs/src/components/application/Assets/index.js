@@ -106,7 +106,7 @@ const Assets = () => {
 
   const fetchGroups = () => {
     if(application.applicationId) {
-      let url = "/api/groups?app_id=" + application.applicationId;
+      let url = process.env.REACT_APP_PROXY_URL + "/api/groups?app_id=" + application.applicationId;
       fetch(url, {
         headers: authHeader(),
       })
@@ -423,7 +423,7 @@ const Assets = () => {
     then((values) => {
       let isNew = newGroup.id && newGroup.id != "" ? false : true;
     setNewGroupForm({ submitted: true });
-    fetch("/api/groups", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/groups", {
       method: "post",
       headers: authHeader(),
       body: JSON.stringify({
@@ -482,7 +482,7 @@ const Assets = () => {
       cancelText: "No",
       onOk() {
         parent = getParent(selectedGroup.key, treeData);
-        fetch("/api/groups", {
+        fetch(process.env.REACT_APP_PROXY_URL + "/api/groups", {
           method: "delete",
           headers: authHeader(),
           body: JSON.stringify({
@@ -521,7 +521,7 @@ const Assets = () => {
         ? groupIdFromAssetsView
         : selectedGroup.id;
     fetch(
-      "/api/groups/details?app_id=" +
+      process.env.REACT_APP_PROXY_URL + "/api/groups/details?app_id=" +
         application.applicationId +
         "&group_id=" +
         groupId,
@@ -584,7 +584,7 @@ const Assets = () => {
           const dropKey = info.node.props.eventKey;
           const dragKey = info.dragNode.props.eventKey;
           const dropPos = info.node.props.pos.split("-");
-          fetch("/api/groups/move", {
+          fetch(process.env.REACT_APP_PROXY_URL + "/api/groups/move", {
             method: "put",
             headers: authHeader(),
             body: JSON.stringify({

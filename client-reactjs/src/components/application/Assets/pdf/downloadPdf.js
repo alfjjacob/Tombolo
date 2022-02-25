@@ -22,7 +22,7 @@ export function downloadPdf(fileName, targetClass) {
 
 export const getNestedAssets = (applicationId, setSelectedAsset, setSelectDetailsforPdfDialogVisibility, record, setToPrintAssets) => {
   if(record.type === "Group"){
-    let url = `/api/groups/nestedAssets?app_id=${applicationId}&group_id=${record.id}`;
+    let url = process.env.REACT_APP_PROXY_URL + `/api/groups/nestedAssets?app_id=${applicationId}&group_id=${record.id}`;
     fetch(url,  {
       headers: authHeader(),
     }).then((response) => {

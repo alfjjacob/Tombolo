@@ -15,7 +15,7 @@ function login(username, password) {
     return dispatch => {
       dispatch(request({ username }));
 
-      fetch('/api/user/authenticate', {
+      fetch(process.env.REACT_APP_PROXY_URL + '/api/user/authenticate', {
         method: 'post',
         headers: {
             'Accept': 'application/json',
@@ -55,7 +55,7 @@ function registerNewUser(newUserObj) {
   return dispatch => {
     dispatch(request());
 
-    fetch('/api/user/registerUser', {
+    fetch(process.env.REACT_APP_PROXY_URL + '/api/user/registerUser', {
       method: 'post',
       headers: {
           'Accept': 'application/json',
@@ -105,7 +105,7 @@ function validateToken() {
     return dispatch => {
       if(user) {
         dispatch(validate(user));
-        fetch('/api/user/validateToken', {
+        fetch(process.env.REACT_APP_PROXY_URL + '/api/user/validateToken', {
           method: 'post',
           headers: authHeader(),
           body: JSON.stringify({"username": user.username})

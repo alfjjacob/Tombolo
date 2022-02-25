@@ -34,7 +34,7 @@ class ForgotPassword extends React.Component {
 		this.setState({ submitted: true });
 		if(this.state.email) {
       this.setState({sendingEmail: true})
-	  	fetch('/api/user/forgot-password', {
+	  	fetch(process.env.REACT_APP_PROXY_URL + '/api/user/forgot-password', {
 	      method: 'post',
 	      headers: {
 	        'Accept': 'application/json',

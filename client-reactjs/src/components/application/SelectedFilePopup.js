@@ -22,7 +22,7 @@ class SelectedFilePopup extends Component {
   }
   validateAppIdFileId(appId,fileIdValue){
     var _self = this;
-    fetch("/api/file/read/CheckFileId?app_id="+appId+"&file_id="+fileIdValue, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/CheckFileId?app_id="+appId+"&file_id="+fileIdValue, {
       headers: authHeader()
     })
     .then((response) => {
@@ -42,7 +42,7 @@ class SelectedFilePopup extends Component {
 
   }
   getAppName(appId) {
-      fetch("/api/app/read/app?app_id="+appId, {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/app/read/app?app_id="+appId, {
         headers: authHeader()
       })
       .then((response) => {

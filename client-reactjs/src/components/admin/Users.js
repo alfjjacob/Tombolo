@@ -47,7 +47,7 @@ class Users extends Component {
    this.setState({
       initialDataLoading: true
     });
-  	fetch("/api/user/", {
+  	fetch(process.env.REACT_APP_PROXY_URL + "/api/user/", {
       headers: authHeader()
     })
 	.then((response) => {
@@ -71,7 +71,7 @@ class Users extends Component {
   }
 
   handleDelete = (id) => {
-   fetch("/api/user/"+id, {
+   fetch(process.env.REACT_APP_PROXY_URL + "/api/user/"+id, {
     method: 'delete',
     headers: authHeader()
    }).then((response) => {
@@ -95,7 +95,7 @@ class Users extends Component {
   }
 
   handleEditUser(userId) {
-    fetch("/api/user/"+userId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/user/"+userId, {
       headers: authHeader()
     })
     .then((response) => {
@@ -168,7 +168,7 @@ class Users extends Component {
         "role"     : this.state.newUser.role
       }
     );
-    let url = this.state.isUserUpdated ?  '/api/user/'+this.state.newUser.id :  '/api/user/register';
+    let url = this.state.isUserUpdated ?  process.env.REACT_APP_PROXY_URL + '/api/user/'+this.state.newUser.id :  process.env.REACT_APP_PROXY_URL + '/api/user/register';
     let method = this.state.isUserUpdated ?  'put' :  'post';
   	fetch(url, {
         method: method,

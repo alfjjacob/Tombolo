@@ -62,7 +62,7 @@ const validationRuleFixes = [
 
 const fetchDataDictionary = (applicationId) => {
   return new Promise((resolve, reject) => {
-    fetch("/api/data-dictionary?application_id="+applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/data-dictionary?application_id="+applicationId, {
       headers: authHeader()
     })
     .then((response) => {

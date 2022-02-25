@@ -42,7 +42,7 @@ class FileTable extends Component {
 
   fetchDataAndRenderTable() {
     var _self=this;
-    fetch("/api/file/read/file_list?app_id="+this.state.applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/file_list?app_id="+this.state.applicationId, {
         headers: authHeader()
     })
     .then((response) => {
@@ -88,7 +88,7 @@ class FileTable extends Component {
   handleDelete= (fileId) => {
     console.log(fileId);
     var data = JSON.stringify({fileId: fileId, application_id: this.state.applicationId});
-    fetch("/api/file/read/delete", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/delete", {
       method: 'post',
       headers: authHeader(),
       body: data
@@ -137,7 +137,7 @@ class FileTable extends Component {
   }
 
   showFileinstances = (fileId) => {
-    fetch("/api/fileinstance/instances?file_def="+fileId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/fileinstance/instances?file_def="+fileId, {
         headers: authHeader()
     })
     .then((response) => {

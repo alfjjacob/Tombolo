@@ -42,7 +42,7 @@ function BasicsTabSpray({enableEdit, editingAllowed, addingNewAsset, clearState,
 
   const getDropZones = (clusterId) => {
     if(clusterId) {
-      fetch("/api/hpcc/read/getDropZones?clusterId="+clusterId, {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/getDropZones?clusterId="+clusterId, {
         headers: authHeader()
       })
       .then((response) => {
@@ -76,7 +76,7 @@ function BasicsTabSpray({enableEdit, editingAllowed, addingNewAsset, clearState,
       nameFilter: searchString, 
       server: selectedDropZoneIP
     });
-    fetch("/api/hpcc/read/dropZoneFileSearch", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/dropZoneFileSearch", {
       method: 'post',
       headers: authHeader(),
       body: data

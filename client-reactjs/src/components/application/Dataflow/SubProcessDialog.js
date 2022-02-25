@@ -51,7 +51,7 @@ function SubProcessDialog({show, applicationId, selectedParentDataflow, onRefres
   }
 
   const getData = async () => {
-    fetch('/api/dataflow?application_id='+applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + '/api/dataflow?application_id='+applicationId, {
       headers: authHeader()
     }).then(function(response) {
       if(response.ok) {
@@ -67,7 +67,7 @@ function SubProcessDialog({show, applicationId, selectedParentDataflow, onRefres
 
   const fetchSavedGraph = async () => {
     if(selectedParentDataflow && selectedParentDataflow.id != '' && selectedParentDataflow.id != undefined) {
-      fetch("/api/dataflowgraph?application_id="+applicationId+"&dataflowId="+selectedParentDataflow.id, {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/dataflowgraph?application_id="+applicationId+"&dataflowId="+selectedParentDataflow.id, {
          headers: authHeader()
       })
       .then((response) => {

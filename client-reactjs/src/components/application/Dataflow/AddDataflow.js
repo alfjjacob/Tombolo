@@ -67,7 +67,7 @@ function AddDataflow({action, actionType, isShowing, toggle, applicationId, onDa
   const [formObj] = Form.useForm();
 
   const getClusters = () => {
-    fetch("/api/hpcc/read/getClusters", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/getClusters", {
       headers: authHeader()
     })
     .then((response) => {
@@ -109,7 +109,7 @@ function AddDataflow({action, actionType, isShowing, toggle, applicationId, onDa
       submitted: true
     });
 
-    fetch('/api/dataflow/save', {
+    fetch(process.env.REACT_APP_PROXY_URL + '/api/dataflow/save', {
       method: 'post',
       headers: authHeader(),
       body: JSON.stringify(

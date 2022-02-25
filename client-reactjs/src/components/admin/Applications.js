@@ -56,9 +56,9 @@ class Applications extends Component {
 
   //Get all apps from the DB
   getApplications() {
-  	var url="/api/app/read/appListByUserId?user_id="+this.props.user.id+"&user_name="+this.props.user.username;
+  	var url=process.env.REACT_APP_PROXY_URL + "/api/app/read/appListByUserId?user_id="+this.props.user.id+"&user_name="+this.props.user.username;
     if(hasAdminRole(this.props.user))
-      url="/api/app/read/app_list";
+      url=process.env.REACT_APP_PROXY_URL + "/api/app/read/app_list";
 
   	fetch(url, {
       headers: authHeader()
@@ -81,7 +81,7 @@ class Applications extends Component {
 
   //Handle Edit application
   handleEditApplication(app_id) {
-    fetch("/api/app/read/app?app_id="+app_id, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/app/read/app?app_id="+app_id, {
       headers: authHeader()
     })
     .then((response) => {
@@ -122,7 +122,7 @@ class Applications extends Component {
   //Handle Application deletion
   handleRemove = (app_id) => {
   	var data = JSON.stringify({appIdsToDelete:app_id});
-    fetch("/api/app/read/removeapp", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/app/read/removeapp", {
       method: 'post',
       headers: authHeader(),
       body: data
@@ -211,7 +211,7 @@ class Applications extends Component {
         "visibility": this.state.newApp.visibility
       });
 
-    	fetch("/api/app/read/newapp", {
+    	fetch(process.env.REACT_APP_PROXY_URL + "/api/app/read/newapp", {
         method: 'post',
         headers: authHeader(),
         body: data
@@ -259,7 +259,7 @@ class Applications extends Component {
 
   //When export icon is clicked
   handleExportApplication = (id, title) => {
-    fetch("/api/app/read/export", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/app/read/export", {
       method: 'post',
       headers: authHeader(),
       body: JSON.stringify({id: id})

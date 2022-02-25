@@ -7,7 +7,7 @@ function GHMainFile({ enableEdit, form, getAuthorizationHeaders }) {
   const [defaultCascader, setDefaultCascader] = useState(null);
 
   const fetchFilesFromGitHub = async (targetOption) => {
-    const url = `https://api.github.com/repos/${targetOption.owner}/${targetOption.repo}/contents${ targetOption.path ? '/' + targetOption.path : '' }?ref=${targetOption.ref}`;
+    const url = process.env.REACT_APP_PROXY_URL + `https://api.github.com/repos/${targetOption.owner}/${targetOption.repo}/contents${ targetOption.path ? '/' + targetOption.path : '' }?ref=${targetOption.ref}`;
     const respond = await fetch(url, { headers: getAuthorizationHeaders() });
     const content = await respond.json();
     if (content.message) throw new Error(content.message);

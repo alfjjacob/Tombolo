@@ -37,7 +37,7 @@ function DataflowTable({data, applicationId, onSelectDataflow, onDataFlowUpdated
   }
 
   const handleDataflowDelete = (id) => {
-    fetch('/api/dataflow/delete', {
+    fetch(process.env.REACT_APP_PROXY_URL + '/api/dataflow/delete', {
       headers: authHeader(),
       method: 'post',
       body: JSON.stringify({'dataflowId': id, 'applicationId':applicationId})

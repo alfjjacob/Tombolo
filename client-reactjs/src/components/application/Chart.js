@@ -40,7 +40,7 @@ class Chart extends Component {
 
   fetchFileLicenseCount() {
     var self=this;   
-    fetch("/api/file/read/fileLicenseCount?app_id="+this.state.applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/fileLicenseCount?app_id="+this.state.applicationId, {
         headers: authHeader()
     })
     .then((response) => {
@@ -78,7 +78,7 @@ class Chart extends Component {
   fetchDependenciesCount() {
     var self=this;  
     var maxCount=0; 
-    fetch("/api/file/read/DependenciesCount?app_id="+this.state.applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/DependenciesCount?app_id="+this.state.applicationId, {
         headers: authHeader()
     })
     .then((response) => {
@@ -101,7 +101,7 @@ class Chart extends Component {
     });
   }
   fetchFileLayoutDataType(){    
-    fetch("/api/file/read/fileLayoutDataType?app_id="+this.state.applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/fileLayoutDataType?app_id="+this.state.applicationId, {
       headers: authHeader()
     })
     .then((response) => {
@@ -147,7 +147,7 @@ class Chart extends Component {
       popupTitle="Non License Files";
     else 
       popupTitle="License - "+data.points[0].x;
-    fetch("/api/file/read/LicenseFileList?app_id="+this.state.applicationId+"&name="+data.points[0].x, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/LicenseFileList?app_id="+this.state.applicationId+"&name="+data.points[0].x, {
         headers: authHeader()
     })
     .then((response) => {
@@ -184,7 +184,7 @@ class Chart extends Component {
   onFileLayoutClick = (data) => {  
     var popupTitle="";
     popupTitle="Data Type - "+data.points[0].label;
-    fetch("/api/file/read/getFileLayoutByDataType?app_id="+this.state.applicationId+"&data_types="+data.points[0].label, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/getFileLayoutByDataType?app_id="+this.state.applicationId+"&data_types="+data.points[0].label, {
         headers: authHeader()
     })
     .then((response) => {

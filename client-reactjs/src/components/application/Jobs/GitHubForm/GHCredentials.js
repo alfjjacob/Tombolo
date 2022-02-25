@@ -10,7 +10,7 @@ function GHCredentials({ enableEdit, form}) {
   useEffect(() => {
     (async()=>{
       try {
-        const response = await fetch('/api/ghcredentials',{ headers: authHeader() });
+        const response = await fetch(process.env.REACT_APP_PROXY_URL + '/api/ghcredentials',{ headers: authHeader() });
         if (!response.ok) throw new Error("Not able to get credentials");        
         const result = await response.json();
         if (!result.credentials) return;

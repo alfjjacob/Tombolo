@@ -89,7 +89,7 @@ function DataDefinitionDetailsDialog({selectedDataDefinition, applicationId, onD
       dataToSave.data_defn = JSON.stringify(dataDefinition.data_defn);
       dataToSave.products = tags.products.join(',');
 
-      fetch("/api/data-dictionary/save", {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/data-dictionary/save", {
         method: 'post',
         headers: authHeader(),
         body: JSON.stringify(dataToSave)
@@ -123,7 +123,7 @@ function DataDefinitionDetailsDialog({selectedDataDefinition, applicationId, onD
   }
 
   const getDataDefintionDetails = async () => {
-    fetch('/api/data-dictionary?application_id='+applicationId+'&id='+selectedDataDefinition.id, {
+    fetch(process.env.REACT_APP_PROXY_URL + '/api/data-dictionary?application_id='+applicationId+'&id='+selectedDataDefinition.id, {
       headers: authHeader()
     }).then(function(response) {
       if(response.ok) {
@@ -141,7 +141,7 @@ function DataDefinitionDetailsDialog({selectedDataDefinition, applicationId, onD
   };
 
   const getFileDetails = async () => {
-    fetch("/api/file/read/file_details?file_id="+selectedDataDefinition.id+"&app_id="+applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/file_details?file_id="+selectedDataDefinition.id+"&app_id="+applicationId, {
         headers: authHeader()
     })
     .then((response) => {

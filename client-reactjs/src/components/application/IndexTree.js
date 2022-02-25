@@ -41,7 +41,7 @@ class IndexTree extends Component {
 
   fetchDataAndRenderTable() {
     var _self=this;
-    fetch("/api/index/read/index_list?app_id="+this.state.applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/index/read/index_list?app_id="+this.state.applicationId, {
       headers: authHeader()
     })
     .then((response) => {
@@ -71,7 +71,7 @@ class IndexTree extends Component {
   handleDelete(indexId) {
     console.log(indexId);
     var data = JSON.stringify({indexId: indexId, application_id: this.state.applicationId});
-    fetch("/api/index/read/delete", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/index/read/delete", {
       method: 'post',
       headers: authHeader(),
       body: data

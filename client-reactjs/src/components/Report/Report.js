@@ -49,7 +49,7 @@ class Report extends Component {
       this.setState({
         initialDataLoading:true
       });
-    fetch("/api/report/read/getReport?searchText="+val+"&userId="+userId+"&applicationId="+this.props.application.applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/report/read/getReport?searchText="+val+"&userId="+userId+"&applicationId="+this.props.application.applicationId, {
         headers: authHeader()
     })
     .then((response) => {

@@ -42,7 +42,7 @@ class ShareApp extends Component {
         initialDataLoading: true
       });
       var userId=(this.props.user)?this.props.user.id:"";
-      fetch("/api/user/"+userId+"/"+appId, {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/user/"+userId+"/"+appId, {
         method: 'get',
         headers: authHeader()
       }).then((response) => {
@@ -66,7 +66,7 @@ class ShareApp extends Component {
     getSharedAppUserList(appId) {
      if(appId){
       var userId=(this.props.user)?this.props.user.username:"";
-      fetch("/api/user/"+appId+"/sharedAppUser", {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/user/"+appId+"/sharedAppUser", {
         method: 'get',
         headers: authHeader()
       }).then((response) => {
@@ -121,7 +121,7 @@ class ShareApp extends Component {
         autoCompleteSuffix : <Spin/>
       });
 
-      fetch("/api/user/searchuser?searchTerm="+searchString, {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/user/searchuser?searchTerm="+searchString, {
         method: 'get',
         headers: authHeader()
       }).then((response) => {
@@ -154,7 +154,7 @@ class ShareApp extends Component {
 
     saveDetails() {
       var _self=this;
-      fetch('/api/app/read/saveUserApp', {
+      fetch(process.env.REACT_APP_PROXY_URL + '/api/app/read/saveUserApp', {
         method: 'post',
         headers: authHeader(),
         body: JSON.stringify({users : [{'user_id': _self.state.selectedUser, 'application_id':_self.state.applicationId}]})

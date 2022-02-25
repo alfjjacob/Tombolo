@@ -36,7 +36,7 @@ function DataDictionaryTable({dataDefinitions, applicationId, onDataUpdated, clo
 
   const handleDataDictionaryDelete = (record) => {
     if(record.type != 'file') {
-      fetch('/api/data-dictionary/delete', {
+      fetch(process.env.REACT_APP_PROXY_URL + '/api/data-dictionary/delete', {
         headers: authHeader(),
         method: 'post',
         body: JSON.stringify({'id': record.id, 'application_id':applicationId})
@@ -61,7 +61,7 @@ function DataDictionaryTable({dataDefinitions, applicationId, onDataUpdated, clo
 
   const handleFileDelete = (fileId) => {
     var data = JSON.stringify({fileId: fileId, application_id: applicationId});
-    fetch("/api/file/read/delete", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/delete", {
       method: 'post',
       headers: authHeader(),
       body: data

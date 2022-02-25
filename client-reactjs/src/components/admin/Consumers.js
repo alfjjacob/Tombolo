@@ -63,7 +63,7 @@ class Consumers extends Component {
   }
 
   getConsumers() {
-  	var url="/api/consumer/consumers";
+  	var url=process.env.REACT_APP_PROXY_URL + "/api/consumer/consumers";
   	fetch(url, {
       headers: authHeader()
     })
@@ -87,7 +87,7 @@ class Consumers extends Component {
     this.setState({
       isEditing: true
     });
-    fetch("/api/consumer/consumer?consumer_id="+consumer_id, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/consumer/consumer?consumer_id="+consumer_id, {
       headers: authHeader()
     })
     .then((response) => {
@@ -125,7 +125,7 @@ class Consumers extends Component {
 
   handleRemove = (consumer_id) => {
   	var data = JSON.stringify({consumerToDelete:consumer_id});
-    fetch("/api/consumer/delete", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/consumer/delete", {
       method: 'post',
       headers: authHeader(),
       body: data
@@ -179,7 +179,7 @@ class Consumers extends Component {
   searchADGroups(searchString) {
     if(searchString.length <= 2)
       return;
-    fetch("/api/ldap/groupSearch?groupName="+searchString, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/ldap/groupSearch?groupName="+searchString, {
       method: 'get',
       headers: authHeader()
     }).then((response) => {
@@ -259,7 +259,7 @@ class Consumers extends Component {
     });
 
 	  console.log('data: '+data);
-    fetch("/api/consumer/consumer", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/consumer/consumer", {
       method: 'post',
       headers: authHeader(),
       body: data

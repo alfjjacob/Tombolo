@@ -43,7 +43,7 @@ class QueryTable extends Component {
 
   fetchDataAndRenderTable() {
     var _self=this;
-    fetch("/api/query/query_list?app_id="+this.state.applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/query/query_list?app_id="+this.state.applicationId, {
       headers: authHeader()
     })
     .then((response) => {
@@ -72,7 +72,7 @@ class QueryTable extends Component {
 
   handleDelete(queryId) {
     var data = JSON.stringify({queryId: queryId, application_id: this.state.applicationId});
-    fetch("/api/query/delete", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/query/delete", {
       method: 'post',
       headers: authHeader(),
       body: data

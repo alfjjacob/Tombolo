@@ -16,7 +16,7 @@ services:
       - ${WEB_PORT}:${WEB_PORT}
       - ${WEB_EXPOSED_PORT}:${WEB_EXPOSED_PORT}
       - ${WEB_EXPOSED_HTTP_PORT}:${WEB_EXPOSED_HTTP_PORT}
-      - 2000:2000
+      - 2222:2222
     volumes:
       - ${CERT_PATH}:/etc/ssl
     env_file:

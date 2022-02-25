@@ -42,7 +42,7 @@ class DataflowInstanceWorkUnits extends Component {
 
   fetchDataflowWorkUnits() {
     if(this.props.applicationId) {
-      fetch("/api/workflows/workunits?application_id="+this.state.applicationId+"&workflow_id="+this.state.workflow_id+"&instance_id="+this.state.instance_id, {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/workflows/workunits?application_id="+this.state.applicationId+"&workflow_id="+this.state.workflow_id+"&instance_id="+this.state.instance_id, {
          headers: authHeader()
       })
       .then((response) => {

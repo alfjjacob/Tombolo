@@ -26,7 +26,7 @@ class ApplicationsList extends Component {
   }
 
  componentDidMount() {
-    fetch("/api/app/read/app_list", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/app/read/app_list", {
       headers: authHeader()
     })
     .then((response) => {
@@ -52,7 +52,7 @@ class ApplicationsList extends Component {
 
   handleSchemaDownload = (e) => {
     var applicationId = application.id;
-    fetch("/api/app/read/export?app_id="+applicationId+"&type="+e.key, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/app/read/export?app_id="+applicationId+"&type="+e.key, {
       headers: authHeader()
     }).then((response) => {
       if(response.ok) {

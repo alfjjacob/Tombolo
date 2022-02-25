@@ -102,7 +102,7 @@ class IndexDetails extends PureComponent {
         initialDataLoading: true
       });
 
-      fetch("/api/index/read/index_details?index_id="+this.props.selectedAsset.id+"&app_id="+this.props.application.applicationId, {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/index/read/index_details?index_id="+this.props.selectedAsset.id+"&app_id="+this.props.application.applicationId, {
         headers: authHeader()
       })
       .then((response) => {
@@ -194,7 +194,7 @@ class IndexDetails extends PureComponent {
       content: 'Are you sure you want to delete this Index?',
       onOk() {
         var data = JSON.stringify({indexId: _self.props.selectedAsset.id, application_id: _self.props.application.applicationId});
-        fetch("/api/index/read/delete", {
+        fetch(process.env.REACT_APP_PROXY_URL + "/api/index/read/delete", {
           method: 'post',
           headers: authHeader(),
           body: data
@@ -242,7 +242,7 @@ class IndexDetails extends PureComponent {
 
     var data = JSON.stringify({clusterid: this.state.selectedCluster, keyword: searchString, indexSearch:true});
 
-    fetch("/api/hpcc/read/filesearch", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/filesearch", {
       method: 'post',
       headers: authHeader(),
       body: data
@@ -276,7 +276,7 @@ class IndexDetails extends PureComponent {
 
   onFileSelected(selectedSuggestion) {
     message.config({top:150});
-    fetch("/api/hpcc/read/getIndexInfo?indexName="+selectedSuggestion+"&clusterid="+this.state.selectedCluster+"&applicationId="+this.props.application.applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/getIndexInfo?indexName="+selectedSuggestion+"&clusterid="+this.state.selectedCluster+"&applicationId="+this.props.application.applicationId, {
       headers: authHeader()
     })
     .then((response) => {
@@ -323,7 +323,7 @@ class IndexDetails extends PureComponent {
 
 
   getFiles() {
-    fetch("/api/file/read/file_ids?app_id="+this.props.application.applicationId, {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/file_ids?app_id="+this.props.application.applicationId, {
       headers: authHeader()
     })
     .then((response) => {
@@ -356,7 +356,7 @@ class IndexDetails extends PureComponent {
         initialDataLoading: true
       });
 
-      fetch('/api/index/read/saveIndex', {
+      fetch(process.env.REACT_APP_PROXY_URL + '/api/index/read/saveIndex', {
         method: 'post',
         headers: authHeader(),
         body: JSON.stringify({isNew : this.props.isNew, id: this.state.index.id, index : this.populateIndexDetails()})

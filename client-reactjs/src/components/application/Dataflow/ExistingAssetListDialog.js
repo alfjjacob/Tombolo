@@ -32,10 +32,10 @@ function ExistingAssetListDialog({show, applicationId, selectedDataflow, assetTy
     let url='';
     switch(assetType) {
       case 'File':
-        url = '/api/file/read/file_list?app_id='+applicationId+"&dataflowId="+selectedDataflow.id;
+        url = process.env.REACT_APP_PROXY_URL + '/api/file/read/file_list?app_id='+applicationId+"&dataflowId="+selectedDataflow.id;
         break;
       case 'Index':
-        url = '/api/index/read/index_list?app_id='+applicationId+"&dataflowId="+selectedDataflow.id;
+        url = process.env.REACT_APP_PROXY_URL + '/api/index/read/index_list?app_id='+applicationId+"&dataflowId="+selectedDataflow.id;
         break;
       case 'Job':
       case 'Modeling':
@@ -43,7 +43,7 @@ function ExistingAssetListDialog({show, applicationId, selectedDataflow, assetTy
       case 'ETL':
       case 'Query Build':
       case 'Data Profile':
-        url = '/api/job/job_list?app_id='+applicationId+"&dataflowId="+selectedDataflow.id;
+        url = process.env.REACT_APP_PROXY_URL + '/api/job/job_list?app_id='+applicationId+"&dataflowId="+selectedDataflow.id;
         break;
     }
 

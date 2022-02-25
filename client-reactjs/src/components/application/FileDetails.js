@@ -151,7 +151,7 @@ class FileDetails extends PureComponent {
 
   fetchDataTypeDetails() {
     var self = this;
-    fetch("/api/file/read/dataTypes", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/dataTypes", {
       headers: authHeader(),
     })
       .then((response) => {
@@ -178,7 +178,7 @@ class FileDetails extends PureComponent {
         initialDataLoading: true,
       });
       fetch(
-        "/api/file/read/file_details?file_id=" +
+        process.env.REACT_APP_PROXY_URL + "/api/file/read/file_details?file_id=" +
           this.props.selectedAsset.id +
           "&app_id=" +
           this.props.application.applicationId,
@@ -345,7 +345,7 @@ class FileDetails extends PureComponent {
           fileId: _self.props.selectedAsset,
           application_id: _self.props.application.applicationId,
         });
-        fetch("/api/file/read/delete", {
+        fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/delete", {
           method: "post",
           headers: authHeader(),
           body: data,
@@ -379,7 +379,7 @@ class FileDetails extends PureComponent {
   };
 
   getLicenses() {
-    fetch("/api/file/read/licenses", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/licenses", {
       headers: authHeader(),
     })
       .then((response) => {
@@ -408,7 +408,7 @@ class FileDetails extends PureComponent {
 
   getInheritedLicenses(fileId, nodeId, dataflowId) {
     let licensesUrl =
-      "/api/file/read/inheritedLicenses?fileId=" +
+    process.env.REACT_APP_PROXY_URL + "/api/file/read/inheritedLicenses?fileId=" +
       fileId +
       "&app_id=" +
       this.props.applicationId +
@@ -471,7 +471,7 @@ class FileDetails extends PureComponent {
       clusterid: this.state.selectedCluster,
       keyword: searchString,
     });
-    fetch("/api/hpcc/read/filesearch", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/filesearch", {
       method: "post",
       headers: authHeader(),
       body: data,
@@ -507,7 +507,7 @@ class FileDetails extends PureComponent {
   async onFileSelected(selectedSuggestion) {
     message.config({ top: 150 });
     fetch(
-      "/api/hpcc/read/getFileInfo?fileName=" +
+      process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/getFileInfo?fileName=" +
         selectedSuggestion +
         "&clusterid=" +
         this.state.selectedCluster +
@@ -588,7 +588,7 @@ class FileDetails extends PureComponent {
 
   saveFileDetails() {
     return new Promise((resolve, reject) => {
-      fetch("/api/file/read/savefile", {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/savefile", {
         method: "post",
         headers: authHeader(),
         body: JSON.stringify({
@@ -625,7 +625,7 @@ class FileDetails extends PureComponent {
       : clusterId;
     if (cluster) {
       fetch(
-        "/api/hpcc/read/getData?fileName=" + fileName + "&clusterid=" + cluster,
+        process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/getData?fileName=" + fileName + "&clusterid=" + cluster,
         {
           headers: authHeader(),
         }
@@ -796,7 +796,7 @@ class FileDetails extends PureComponent {
       }
     });
     fetch(
-      "/api/controlsAndRegulations/getComplianceByDataType?dataType=" +
+      process.env.REACT_APP_PROXY_URL + "/api/controlsAndRegulations/getComplianceByDataType?dataType=" +
         selectedDataTypes.join(","),
       {
         headers: authHeader(),
@@ -875,7 +875,7 @@ class FileDetails extends PureComponent {
       compliance = this.state.complianceTags;
       complianceDetails = this.state.complianceDetails;
       fetch(
-        "/api/controlsAndRegulations/getComplianceByDataType?dataType=" +
+        process.env.REACT_APP_PROXY_URL + "/api/controlsAndRegulations/getComplianceByDataType?dataType=" +
           prop.newValue,
         {
           headers: authHeader(),

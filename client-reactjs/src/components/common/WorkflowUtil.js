@@ -24,7 +24,7 @@ export function handleJobDelete(jobId, applicationId) {
 export function handleIndexDelete(indexId, applicationId) {
   return new Promise((resolve) => {
 	  var data = JSON.stringify({indexId: indexId, application_id: applicationId});
-	  fetch("/api/index/read/delete", {
+	  fetch(process.env.REACT_APP_PROXY_URL + "/api/index/read/delete", {
 	    method: 'post',
 	    headers: authHeader(),
 	    body: data
@@ -44,7 +44,7 @@ export function handleIndexDelete(indexId, applicationId) {
  export function handleQueryDelete(queryId, applicationId) {
   return new Promise((resolve) => {
 	  var data = JSON.stringify({queryId: queryId, application_id: applicationId});
-	  fetch("/api/query/delete", {
+	  fetch(process.env.REACT_APP_PROXY_URL + "/api/query/delete", {
 	    method: 'post',
 	    headers: authHeader(),
 	    body: data
@@ -64,7 +64,7 @@ export function handleIndexDelete(indexId, applicationId) {
 export function handleFileDelete (fileId, applicationId) {
   return new Promise((resolve) => {
     var data = JSON.stringify({fileId: fileId, application_id: applicationId});
-    fetch("/api/file/read/delete", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/delete", {
       method: 'post',
       headers: authHeader(),
       body: data
@@ -85,7 +85,7 @@ export function handleFileInstanceDelete (fileInstanceId) {
 	console.log(fileInstanceId)
   return new Promise((resolve) => {
     var data = JSON.stringify({id: fileInstanceId});
-    fetch("/api/fileinstance/delete", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/fileinstance/delete", {
       method: 'post',
       headers: authHeader(),
       body: data
@@ -105,7 +105,7 @@ export function handleFileInstanceDelete (fileInstanceId) {
 export function handleSubProcessDelete (subProcessId, applicationId) {
   return new Promise((resolve) => {
     var data = JSON.stringify({dataflowId: subProcessId, applicationId: applicationId});
-    fetch("/api/dataflow/delete", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/dataflow/delete", {
       method: 'post',
       headers: authHeader(),
       body: data
@@ -125,7 +125,7 @@ export function handleSubProcessDelete (subProcessId, applicationId) {
 export function updateGraph(assetId, applicationId, selectedDataflow) {
   return new Promise((resolve) => {
 	  var data = JSON.stringify({id: assetId, application_id: applicationId, dataflowId: selectedDataflow.id});
-	  fetch("/api/dataflowgraph/deleteAsset", {
+	  fetch(process.env.REACT_APP_PROXY_URL + "/api/dataflowgraph/deleteAsset", {
 	    method: 'post',
 	    headers: authHeader(),
 	    body: data
@@ -143,7 +143,7 @@ export function updateGraph(assetId, applicationId, selectedDataflow) {
 export function changeVisibility(assetId, applicationId, selectedDataflow, hide) {
   return new Promise((resolve) => {
     var data = JSON.stringify({id: assetId, application_id: applicationId, dataflowId: selectedDataflow.id, hide: hide});
-    fetch("/api/dataflowgraph/changeNodeVisibility", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/dataflowgraph/changeNodeVisibility", {
       method: 'post',
       headers: authHeader(),
       body: data

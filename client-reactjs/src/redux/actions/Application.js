@@ -68,7 +68,7 @@ function topNavChanged(topNav) {
 
 function getClusters() {
   return dispatch => {
-    fetch("/api/hpcc/read/getClusters", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/getClusters", {
       headers: authHeader()
     })
     .then((response) => {
@@ -89,7 +89,7 @@ function getClusters() {
 
 function getConsumers() {
   return dispatch => {
-    fetch("/api/consumer/consumers", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/consumer/consumers", {
         headers: authHeader()
     })
     .then((response) => {

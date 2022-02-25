@@ -478,7 +478,7 @@ class Graph extends Component {
     this.setState({
       loading: true
     });
-    fetch('/api/job/createFileRelation', {
+    fetch(process.env.REACT_APP_PROXY_URL + '/api/job/createFileRelation', {
       method: 'post',
       headers: authHeader(),
       body: JSON.stringify({
@@ -506,7 +506,7 @@ class Graph extends Component {
 
   saveAssetToDataflow(assetId, dataflowId, assetType, jobType) {
     console.log(assetId, dataflowId, assetType, jobType);
-    fetch('/api/dataflow/saveAsset', {
+    fetch(process.env.REACT_APP_PROXY_URL + '/api/dataflow/saveAsset', {
       method: 'post',
       headers: authHeader(),
       body: JSON.stringify({ assetId: assetId, dataflowId: dataflowId })
@@ -538,7 +538,7 @@ class Graph extends Component {
     });
 
 
-    fetch('/api/dataflowgraph/save', {
+    fetch(process.env.REACT_APP_PROXY_URL + '/api/dataflowgraph/save', {
         method: 'post',
         headers: authHeader(),
         body: JSON.stringify({
@@ -566,7 +566,7 @@ class Graph extends Component {
     return new Promise((resolve, reject) => {
       var _self=this, nodes = [], edges = [];
       if(this.props.selectedDataflow && this.props.selectedDataflow.id != '' && this.props.selectedDataflow.id != undefined) {
-        fetch("/api/dataflowgraph?application_id="+this.props.applicationId+"&dataflowId="+this.props.selectedDataflow.id, {
+        fetch(process.env.REACT_APP_PROXY_URL + "/api/dataflowgraph?application_id="+this.props.applicationId+"&dataflowId="+this.props.selectedDataflow.id, {
           headers: authHeader()
         })
         .then((response) => {
@@ -1597,7 +1597,7 @@ class Graph extends Component {
     _self.setState({
       loading: true
     });
-    fetch('/api/job/refreshDataflow', {
+    fetch(process.env.REACT_APP_PROXY_URL + '/api/job/refreshDataflow', {
       method: 'post',
       headers: authHeader(),
       body: JSON.stringify({

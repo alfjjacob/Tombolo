@@ -114,7 +114,7 @@ function VisualizationDetails({ selectedGroup, openGroup, handleEditGroup, refre
     try {
       const values = await form.current.validateFields();
       console.log(formState.selectedCluster)
-      fetch("/api/file/read/visualization", {
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/visualization", {
         method: "post",
         headers: authHeader(),
         body: JSON.stringify({
@@ -160,7 +160,7 @@ function VisualizationDetails({ selectedGroup, openGroup, handleEditGroup, refre
         initialDataLoading: true
       })
       
-      fetch("/api/file/read/getVisualizationDetails?id="+assetReducer.selectedAsset.id,{
+      fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/getVisualizationDetails?id="+assetReducer.selectedAsset.id,{
         headers: authHeader(),
       }).then((response) => {
         if (response.ok) {
@@ -235,7 +235,7 @@ function VisualizationDetails({ selectedGroup, openGroup, handleEditGroup, refre
       app_id: applicationReducer.application.applicationId,
       keyword: searchString,
     });
-    fetch("/api/file/read/tomboloFileSearch", {
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/file/read/tomboloFileSearch", {
       method: "post",
       headers: authHeader(),
       body: data,
@@ -270,7 +270,7 @@ function VisualizationDetails({ selectedGroup, openGroup, handleEditGroup, refre
   }, 100);
 
   const onFileSelected = (selectedSuggestion) => {
-    fetch("/api/hpcc/read/getFileInfo?fileName="+selectedSuggestion+"&applicationId="+applicationReducer.application.applicationId,{
+    fetch(process.env.REACT_APP_PROXY_URL + "/api/hpcc/read/getFileInfo?fileName="+selectedSuggestion+"&applicationId="+applicationReducer.application.applicationId,{
         headers: authHeader(),
     })
     .then((response) => {
