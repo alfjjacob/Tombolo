@@ -19,7 +19,7 @@ env:
   AUTH_SERVICE_URL: ${{ secrets.AUTH_SERVICE_URL }}
   AUTHSERVICE_TOMBOLO_CLIENT_ID: ${{ secrets.AUTHSERVICE_TOMBOLO_CLIENT_ID }}
   secret: ${{ secrets.secret }}
-  AZURE_WEBAPP_PACKAGE_PATH: '../build'
+  AZURE_WEBAPP_PACKAGE_PATH: '.'
 
 jobs:    
   build-ui:
