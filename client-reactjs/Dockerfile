@@ -49,5 +49,5 @@ RUN chmod +x /tmp/ssh_setup.sh \
 # Open port 2222 for SSH access
 EXPOSE 80 2222
 
-#RUN ["chmod", "+x", "/etc/nginx/run_nginx.sh"]
+RUN ["chmod", "+x", "/etc/nginx/run_nginx.sh"]
 ENTRYPOINT [ "/etc/nginx/run_nginx.sh" ]
