@@ -47,6 +47,7 @@ jobs:
         
         zip -r tombolo-ui.zip .
         
-        az webapp deploy --resource-group app-tombolo-dev-eastus2 --name tomboloui2-eastus2-dev --src-path tombolo-ui.zip
+        #az webapp deploy --resource-group app-tombolo-dev-eastus2 --name tomboloui2-eastus2-dev --src-path tombolo-ui.zip
+        Publish-AzWebApp -ResourceGroupName app-tombolo-dev-eastus2 -Name tomboloui2-eastus2-dev -ArchivePath tombolo-ui.zip 
       working-directory: client-reactjs          
   
