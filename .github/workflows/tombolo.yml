@@ -30,24 +30,51 @@ jobs:
     runs-on: self-hosted    
     environment:
       name: 'DEV'
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 14
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-    - name: npm install, build, and test
-      run: |
-        # Build and test the project, then
-        # deploy to Azure Web App.
-        npm install
-        CI=false && npm run build --if-present
+    steps:            
+    - uses: actions/checkout@v2    
+    - run: |                        
+        #build
+        #docker rmi tombolo-ui:latest
+        docker build -t tombolo-ui ./client-reactjs
         
+        #tag
+        docker tag tombolo-ui tombolodevcr.azurecr.io/tombolo-ui
+        
+        #login to Azure
         az login --identity
         
-        zip -r tombolo-ui.zip .
+        #login to container registry
+        az acr login --name tombolodevcr        
         
-        #az webapp deploy --resource-group app-tombolo-dev-eastus2 --name tomboloui2-eastus2-dev --src-path tombolo-ui.zip
-        Publish-AzWebApp -ResourceGroupName app-tombolo-dev-eastus2 -Name tomboloui2-eastus2-dev -ArchivePath tombolo-ui.zip 
-      working-directory: client-reactjs          
+        #push image to acr
+        docker push tombolodevcr.azurecr.io/tombolo-ui
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'tomboloui-eastus2-dev'
+        #publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        images: 'tombolodevcr.azurecr.io/tombolo-ui'
+        
+  build_api:
+    name: build-api-container
+    runs-on: self-hosted
+    environment:
+      name: 'DEV'
+    steps:            
+    - uses: actions/checkout@v2    
+    - run: |                
+        #build 
+        docker build -t tombolo-api ./server        
+        #tag
+        docker tag tombolo-api tombolodevcr.azurecr.io/tombolo-api
+        #login to Azure
+        az login --identity        
+        #login to container registry
+        az acr login --name tombolodevcr        
+        #push image to acr
+        docker push tombolodevcr.azurecr.io/tombolo-api
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'tomboloapi-eastus2-dev'
+        #publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        images: 'tombolodevcr.azurecr.io/tombolo-api' 
   
