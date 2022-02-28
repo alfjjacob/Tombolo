@@ -22,6 +22,7 @@ env:
   secret: ${{ secrets.secret }}
   AZURE_WEBAPP_PACKAGE_PATH: './client-reactjs/build'
   AZURE_WEBAPP_PACKAGE_PATH_API: './server'
+  JOB_COMPLETE_GROUP_ID: 'tombolo_dev'
 
 jobs:    
   build-ui:
