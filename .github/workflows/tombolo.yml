@@ -53,6 +53,8 @@ jobs:
   build-api:
     name: Build API
     runs-on: self-hosted
+    environment:
+      name: 'DEV'
     steps:
     - uses: actions/checkout@main
     
