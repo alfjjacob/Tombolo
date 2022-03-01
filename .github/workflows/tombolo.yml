@@ -42,11 +42,10 @@ jobs:
         # deploy to Azure Web App.
         npm install
         CI=false && npm run build --if-present
+      working-directory: client-reactjs  
         
-        az login --identity
-        
-        zip -r tombolo-ui.zip .
-        
-        az webapp deploy --resource-group app-tombolo-dev-eastus2 --name tomboloui2-eastus2-dev --src-path tombolo-ui.zip
-        #Publish-AzWebApp -ResourceGroupName app-tombolo-dev-eastus2 -Name tomboloui2-eastus2-dev -ArchivePath tombolo-ui.zip 
-      working-directory: client-reactjs    
+    - uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'tomboloui2-eastus2-dev'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
