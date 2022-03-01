@@ -73,6 +73,8 @@ jobs:
         echo AUTH_SERVICE_URL=${{ secrets.AUTH_SERVICE_URL }} >> .env
         echo AUTHSERVICE_TOMBOLO_CLIENT_ID=${{ secrets.AUTHSERVICE_TOMBOLO_CLIENT_ID }} >> .env
         echo secret=${{ secrets.secret }} >> .env
+      working-directory: server   
+        
     - name: Use Node.js 14
       uses: actions/setup-node@v2
       with:
