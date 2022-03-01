@@ -1,8 +1,7 @@
 #!/bin/sh
 
 echo "start ssh server"
-#(sleep 2;/usr/sbin/sshd -D -e)
-(sleep 2; service ssh start)
+(sleep 2;/usr/sbin/sshd -D -e)
 echo "started ssh server"
 
 echo "######## Run nginx"
