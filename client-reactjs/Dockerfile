@@ -53,4 +53,4 @@ EXPOSE 80 2222
 
 RUN chmod +x /etc/nginx/run_nginx.sh
 
-ENTRYPOINT [ "/etc/nginx/run_nginx.sh", "tomboloui-eastus2-dev.azurewebsites.net"]
+ENTRYPOINT [ "/etc/nginx/run_nginx.sh", "tomboloui-eastus2-dev.azurewebsites.net", "80"]
