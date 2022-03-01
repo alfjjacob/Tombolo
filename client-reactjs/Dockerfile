@@ -46,7 +46,7 @@ RUN dos2unix /tmp/ssh_setup.sh
 RUN chmod +x /tmp/ssh_setup.sh \
     && (sleep 1;/tmp/ssh_setup.sh 2>&1 > /dev/null)
 
-ENV WEB_EXPOSED_PORT=80
+ENV WEB_EXPOSED_HTTP_PORT=80
 
 # Open port 2222 for SSH access
 EXPOSE 80 2222
