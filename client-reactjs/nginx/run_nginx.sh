@@ -10,8 +10,5 @@ export HOSTNAME=$hostname
 echo "## HOSTNAME ##"
 echo $HOSTNAME
 export DOLLAR='$'
-web_exposed_port="$2"
-export WEB_EXPOSED_PORT=$web_exposed_port
-echo $WEB_EXPOSED_PORT
 envsubst < /etc/nginx/conf.d/nginx.conf.template > /etc/nginx/conf.d/tombolo-nginx.conf
 nginx -g "daemon off;"
