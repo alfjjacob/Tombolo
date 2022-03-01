@@ -85,6 +85,11 @@ jobs:
         npm install
         npm run build --if-present
       working-directory: server
+      
+    - name: dbmigrate
+      run: |
+        npx sequelize-cli db:migrate        
+      working-directory: server   
     
     - name: 'Deploy to Azure WebApp'
       uses: azure/webapps-deploy@v2
