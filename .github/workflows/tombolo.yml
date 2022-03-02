@@ -18,11 +18,7 @@ env:
   DB_HOSTNAME: ${{ secrets.DB_HOSTNAME }}
   AUTH_SERVICE_URL: ${{ secrets.AUTH_SERVICE_URL }}
   AUTHSERVICE_TOMBOLO_CLIENT_ID: ${{ secrets.AUTHSERVICE_TOMBOLO_CLIENT_ID }}
-  REACT_APP_PROXY_URL: ${{ secrets.REACT_APP_PROXY_URL }}
-  secret: ${{ secrets.secret }}
-  AZURE_WEBAPP_PACKAGE_PATH: './client-reactjs/build'
-  AZURE_WEBAPP_PACKAGE_PATH_API: './server'
-  JOB_COMPLETE_GROUP_ID: 'tombolo_dev'
+  secret: ${{ secrets.secret }}        
 
 jobs:    
   build-ui:
@@ -30,70 +26,26 @@ jobs:
     runs-on: self-hosted    
     environment:
       name: 'DEV'
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 14
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-    - name: npm install, build, and test
-      run: |
-        # Build and test the project, then
-        # deploy to Azure Web App.
-        npm install
-        CI=false && npm run build --if-present
-      working-directory: client-reactjs  
+    steps:            
+    - uses: actions/checkout@v2    
+    - run: |                        
+        #build
+        #docker rmi tombolo-ui:latest
+        docker build -t tombolo-ui ./client-reactjs
         
+        #tag
+        docker tag tombolo-ui tombolodevcr.azurecr.io/tombolo-ui
+        
+        #login to Azure
+        az login --identity
+        
+        #login to container registry
+        az acr login --name tombolodevcr        
+        
+        #push image to acr
+        docker push tombolodevcr.azurecr.io/tombolo-ui
     - uses: azure/webapps-deploy@v2
       with:
-        app-name: 'tomboloui2-eastus2-dev'
-        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-        
-  build-api:
-    name: Build API
-    runs-on: self-hosted
-    environment:
-      name: 'DEV'
-    steps:
-    - uses: actions/checkout@main
-    
-    - name: Rename cluster-whitelist
-      run: cp cluster-whitelist.sample.js cluster-whitelist.js
-      working-directory: server
-      
-    - name: create env file
-      run: |
-        touch .env
-        echo DB_USERNAME=${{ secrets.DB_USERNAME }} >> .env
-        echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
-        echo DB_PORT=${{ secrets.DB_PORT }} >> .env
-        echo DB_NAME=${{ secrets.DB_NAME }} >> .env
-        echo DB_HOSTNAME=${{ secrets.DB_HOSTNAME }} >> .env
-        echo AUTH_SERVICE_URL=${{ secrets.AUTH_SERVICE_URL }} >> .env
-        echo AUTHSERVICE_TOMBOLO_CLIENT_ID=${{ secrets.AUTHSERVICE_TOMBOLO_CLIENT_ID }} >> .env
-        echo secret=${{ secrets.secret }} >> .env
-      working-directory: server   
-        
-    - name: Use Node.js 14
-      uses: actions/setup-node@v2
-      with:
-        node-version: 14
-    
-    - name: npm install, build, and test
-      run: |
-        npm install
-        npm run build --if-present
-      working-directory: server
-      
-    - name: dbmigrate
-      run: |
-        npx sequelize-cli db:migrate        
-      working-directory: server   
-    
-    - name: 'Deploy to Azure WebApp'
-      uses: azure/webapps-deploy@v2
-      with: 
-        app-name: 'tomboloapi-eastus2-dev'
-        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_API }}
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH_API }}          
+        app-name: 'tomboloui-eastus2-dev'
+        #publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        images: 'tombolodevcr.azurecr.io/tombolo-ui'
