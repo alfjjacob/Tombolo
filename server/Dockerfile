@@ -54,4 +54,4 @@ RUN npm install -g node-gyp && npm install
 
 RUN npm install sequelize-cli pm2 -g
 
-ENTRYPOINT [ "/app/docker-entry.sh"]
+ENTRYPOINT [ "/app/docker-entry.sh", "tombolo-dev-01.mysql.database.azure.com", "3306"]
