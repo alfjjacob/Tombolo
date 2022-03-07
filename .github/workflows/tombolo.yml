@@ -63,7 +63,20 @@ jobs:
     environment:
       name: 'DEV'
     steps:            
-    - uses: actions/checkout@v2    
+    - uses: actions/checkout@v2
+    - name: create env file
+      run: |
+        touch .env
+        echo DB_USERNAME=${{ secrets.DB_USERNAME }} >> .env
+        echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
+        echo DB_PORT=${{ secrets.DB_PORT }} >> .env
+        echo DB_NAME=${{ secrets.DB_NAME }} >> .env
+        echo DB_HOSTNAME=${{ secrets.DB_HOSTNAME }} >> .env
+        echo AUTH_SERVICE_URL=${{ secrets.AUTH_SERVICE_URL }} >> .env
+        echo AUTHSERVICE_TOMBOLO_CLIENT_ID=${{ secrets.AUTHSERVICE_TOMBOLO_CLIENT_ID }} >> .env
+        echo secret=${{ secrets.secret }} >> .env
+      working-directory: server
+    
     - run: |                
         #build 
         docker build -t tombolo-api ./server        
