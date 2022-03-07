@@ -27,7 +27,14 @@ jobs:
     environment:
       name: 'DEV'
     steps:            
-    - uses: actions/checkout@v2    
+    - uses: actions/checkout@v2
+    
+    - name: create env file
+      run: |
+        touch .env
+        echo REACT_APP_PROXY_URL=${{ secrets.REACT_APP_PROXY_URL }} >> .env
+      working-directory: client-reactjs
+      
     - run: |                        
         #build
         #docker rmi tombolo-ui:latest
