@@ -19,7 +19,7 @@ env:
   AUTH_SERVICE_URL: ${{ secrets.AUTH_SERVICE_URL }}
   AUTHSERVICE_TOMBOLO_CLIENT_ID: ${{ secrets.AUTHSERVICE_TOMBOLO_CLIENT_ID }}
   secret: ${{ secrets.secret }}        
-
+  REACT_APP_PROXY_URL: ${{ secrets.REACT_APP_PROXY_URL }}
 jobs:    
   build-ui:
     name: build-ui-container      
