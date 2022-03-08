@@ -76,6 +76,10 @@ jobs:
         echo AUTHSERVICE_TOMBOLO_CLIENT_ID=${{ secrets.AUTHSERVICE_TOMBOLO_CLIENT_ID }} >> .env
         echo secret=${{ secrets.secret }} >> .env
       working-directory: server
+      
+    - name: Rename cluster-whitelist
+      run: cp cluster-whitelist.sample.js cluster-whitelist.js
+      working-directory: server  
     
     - run: |                
         #build 
